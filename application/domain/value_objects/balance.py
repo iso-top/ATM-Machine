@@ -1,4 +1,4 @@
-class Money:
+class Balance:
     def __init__(self,amount):
         if amount <0:
             raise ValueError("Money cannot be negative")
