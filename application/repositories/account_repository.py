@@ -3,6 +3,10 @@ from abc import ABC, abstractmethod
 class AccountRepository(ABC):
 
     @abstractmethod
+    def exists(self,card_number):
+        #проверяет есть ли такой аккаунт
+        pass
+    @abstractmethod
     def create(self,account):
         pass
     @abstractmethod
@@ -10,5 +14,5 @@ class AccountRepository(ABC):
         pass
 
     @abstractmethod
-    def save(self, account):
+    def update(self, account):
         pass

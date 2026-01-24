@@ -7,4 +7,5 @@ class TransactionRepository(ABC):
         pass
     @abstractmethod
     def get_for_account(self, account_number):
+        #выдает историю транзакций аккаунта
         pass
