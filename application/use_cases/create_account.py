@@ -17,7 +17,7 @@ class CreateAccount:
             raise ValueError(f"the card with the number {card_number} already exists")
         
     #создание сущности домейн
-        account = Account(card_number = card_number_vo,pin = pin_vo)
+        account = Account(card_number = card_number_vo, pin = pin_vo)
 
         self._account_repository.create(account)
 
