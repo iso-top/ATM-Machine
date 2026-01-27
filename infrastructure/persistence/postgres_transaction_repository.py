@@ -24,7 +24,7 @@ class PostgresTransactionRepository(TransactionRepository):
                 )
             )
         self._connection.commit()
-        
+
     def get_for_account(self, account_number: Number_card) -> list[Transaction]:    
         with self._connection.cursor() as cursor:
             cursor.execute(
@@ -49,3 +49,17 @@ class PostgresTransactionRepository(TransactionRepository):
                 )
             )
         return transactions
+
+"""
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    account_id INTEGER NOT NULL,
+    amount NUMERIC(12, 2) NOT NULL,
+    type VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    CONSTRAINT fk_transactions_account
+        FOREIGN KEY (account_id)
+        REFERENCES accounts(id)
+        ON DELETE CASCADE
+);
+"""

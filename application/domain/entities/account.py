@@ -1,23 +1,24 @@
-from domain.value_objects.balance import Balance
-from domain.value_objects.number_card import Number_card
-from domain.value_objects.pincode import Pincode
+from ..value_objects.balance import Balance
+from ..value_objects.number_card import Number_card
+from ..value_objects.pincode import Pincode
 
 class Account:
-    def __init__(self, account_id,  balance: Balance, number_card:Number_card, pin_code:Pincode):
+    def __init__(self, account_id: int, balance: Balance, number_card: Number_card, pin_code: Pincode):
         self.account_id = account_id
-        self.balance = Balance(0) #задается начальный баланс 0
+        self.balance = balance  # используем переданный баланс
         self.number_card = number_card
         self.pin_code = pin_code
 
-    #пополнение счета
-    def deposit_balance(self,amount: float):
-        deposit += Balance(amount)
-        self.balance = Balance(self.balance.amount + deposit.amount)
-    #снятие с счета
-    def withdrawal(self, amount):
-        if self.balance < amount:
-            raise ValueError("") 
-        self.balance -= amount
+    # Пополнение счета
+    def deposit_balance(self, amount: float):
+        self.balance = Balance(self.balance.amount + amount)
 
-    def check(self, balance):
-        print("Ваш баланс:", balance)
+    # Снятие со счета
+    def withdrawal(self, amount: float):
+        if self.balance.amount < amount:
+            raise ValueError("Недостаточно средств на счете")
+        self.balance = Balance(self.balance.amount - amount)
+
+    # Проверка баланса
+    def check_balance(self):
+        print("Ваш баланс:", self.balance.amount)

@@ -3,7 +3,7 @@ class Pincode:
         if not isinstance(value, str):
             raise ValueError("The card's pin code should not be of type int")
         
-        if value.isdigit():
+        if not value.isdigit():
             raise ValueError("Card number must contain only digits")
         
         lenght = len(value)

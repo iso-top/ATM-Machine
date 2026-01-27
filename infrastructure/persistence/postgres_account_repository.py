@@ -30,7 +30,7 @@ class PostgresAccountRepository(AccountRepository):
         with self._connection.cursor() as cursor:
             cursor.execute(
                 """
-                SELECT card_number, pin, balance
+                SELECT id,card_number, pin, balance
                 FROM accounts
                 WHERE card_number = %s
                 """,
@@ -42,10 +42,12 @@ class PostgresAccountRepository(AccountRepository):
             return None
 
         return Account(
-            card_number=Number_card(row[0]),
-            pin=Pincode(row[1]),
-            balance=Balance(row[2])
+            account_id=row["id"],
+            balance=Balance(row["balance"]),
+            number_card=Number_card(row["card_number"]),
+            pin_code=Pincode(row["pin"])
         )
+
     def update(self, account: Account) -> None:
         with self._connection.cursor() as cursor:
             cursor.execute(

@@ -3,7 +3,7 @@ class Number_card:
         if not isinstance(value, str):
             raise ValueError("Card number value object")
         
-        if value.isdigit():
+        if not value.isdigit():
             raise ValueError("Card number must contain only digits")
         
         lenght = len(value)
@@ -11,3 +11,5 @@ class Number_card:
             raise ValueError("the entered number cannot be more than 19 characters")
         if lenght < 13:
             raise ValueError("the entered number cannot be less than 13 characters")
+        
+        self.value = value
