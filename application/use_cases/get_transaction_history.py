@@ -1,18 +1,9 @@
-from domain.entities.account import Account
-from domain.value_objects.number_card import Number_card
-from domain.value_objects.pincode import Pincode
+from application.repositories.transaction_repository import TransactionRepository
 
 class GetTransactionHistory:
-    def __init__(self, account_repository):
-        self._account_repository = account_repository
+    def __init__(self, transaction_repository: TransactionRepository):
+        self._transaction_repository = transaction_repository
 
-    def execute(self, card_number: str):
-        #получаем карту через 
-        card_number_vo = Number_card(card_number)
-        account = self._account_repository.get_by_card(card_number)
-
-        #проверка на наличие 
-        if account is None:
-            raise ValueError("Account not found")
-
-        return account.transactions
+    def execute(self, account_id: int):
+        transactions = self._transaction_repository.get_for_account(account_id)
+        return transactions if transactions else []

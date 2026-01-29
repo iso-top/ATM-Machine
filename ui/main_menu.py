@@ -5,7 +5,9 @@ from ui.user_menu import user_menu
 from rich.console import Console
 from time import sleep
 console = Console()
-def main_menu(account_repo):
+
+
+def main_menu(account_repo,transaction_repo):
     console.print("[bold #61cf5a]Добро пожаловать в ATM_machine: [/]")
     """Выбор режима."""
     while (True):    
@@ -29,9 +31,9 @@ def main_menu(account_repo):
                             sleep(2)
                             card_vo = Number_card(number)
                             pin_vo = Pincode(pin)
-                            account_repo.get_by_card(card_vo)
+                            account = account_repo.get_by_card(card_vo)
                         console.print("[bold #61cf5a]✔ Счет найден[/]")
-                        user_menu(card_vo,pin_vo)
+                        user_menu(account,account_repo,transaction_repo)
                     except Exception as e:
                         print(f"Ошибка: {e}") # Это покажет, что именно сломалось
                         console.print("[red]✖ Счет не найден[/]")

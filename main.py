@@ -1,9 +1,10 @@
 from infrastructure.persistence.db_connection import DatabaseConnection
 from infrastructure.persistence.postgres_account_repository import PostgresAccountRepository
-
+from infrastructure.persistence.postgres_transaction_repository import PostgresTransactionRepository
 from ui.main_menu import main_menu  # функция для запуска главного меню
 from rich.console import Console 
 from time import sleep
+
 
 console = Console()
 def main():
@@ -20,6 +21,7 @@ def main():
             sleep(3)
             conn = db.get_connection()
             account_repo = PostgresAccountRepository(conn)
+            transaction_repo = PostgresTransactionRepository(conn)
             console.print("[bold green]✔ Подключение к базе данных прошло успешно[/]")
     except Exception as e:
         console.print("[red]✖ Подключение к базе данных не удалось[/]")
@@ -27,7 +29,8 @@ def main():
 
 
     # Запуск главного меню
-    main_menu(account_repo)  # передаём репозиторий, чтобы UI мог вызывать use cases
+    main_menu(account_repo,transaction_repo)  # передаём репозиторий, чтобы UI мог вызывать use cases
+
 
 if __name__ == "__main__":
     main()

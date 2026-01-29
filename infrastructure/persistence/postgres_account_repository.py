@@ -11,16 +11,13 @@ class PostgresAccountRepository(AccountRepository):
     def __init__(self,connection):
         self._connection = connection
 
-    def create(self, account):
-        with self._connection as cursor:
+    def create(self, account: Account):
+        with self._connection.cursor() as cursor:
             cursor.execute(
-                """
-                INSERT INTO accounts (card_number, pin, balance)
-                VALUES (%s,%s,%s)
-                """,
+                "INSERT INTO accounts (card_number, pin, balance) VALUES (%s, %s, %s)",
                 (
-                    account.card_number.value,
-                    account.pin.value,
+                    account.number_card.value, # БЫЛО: card_number
+                    account.pin_code.value,    # БЫЛО: pin
                     account.balance.amount
                 )
             )
@@ -57,14 +54,15 @@ class PostgresAccountRepository(AccountRepository):
                 WHERE card_number = %s
                 """,
                 (
-                    account.balance.amount,
-                    account.card_number.value
+                    account.balance.amount,     
+                    account.number_card.value    
                 )
             )
         self._connection.commit()
 
 
 """
+так выглядит таблица в sql
 CREATE TABLE accounts (
     id SERIAL PRIMARY KEY,
     card_number VARCHAR(19) UNIQUE NOT NULL,

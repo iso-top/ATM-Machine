@@ -1,10 +1,19 @@
-from application.repositories.account_repository import AccountRepository
-from domain.value_objects.balance import Balance
+from application.domain.entities.transaction import Transaction
 class WithdrawBalance:
-    def __init__(self,account_repository):
-        self.repo = account_repository
+    def __init__(self, account_repository, transaction_repository):
+        self._account_repository = account_repository
+        self._transaction_repository = transaction_repository
 
-    def execute(self,card_number,amount):
-        account = self.repo.get_by_card(card_number)
-        account = Balance()
-        self.repo.save(account)
+    def execute(self, account, amount):
+        account.withdrawal(amount)
+
+        self._account_repository.update(account)
+
+        transaction = Transaction(
+            account_id=account.account_id,
+            amount=amount,
+            type="withdraw"
+        )
+        self._transaction_repository.add(transaction)
+
+        return account.balance
