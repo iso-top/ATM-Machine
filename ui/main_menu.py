@@ -1,6 +1,6 @@
-from ..application.domain.value_objects.number_card import Number_card
-from ..application.domain.value_objects.pincode import Pincode
-import user_menu
+from application.domain.value_objects.number_card import Number_card
+from application.domain.value_objects.pincode import Pincode
+from ui.user_menu import user_menu
 #библиотека для эффектов в консоль
 from rich.console import Console
 from time import sleep
@@ -17,21 +17,25 @@ def main_menu(account_repo):
                 continue
             while(True):
                 if mode == "1":
-                    pass
+                    break
                 elif mode == "2":
                     number = "97888772396700"
                     pin = "1772"
                     try:
                         #number = console.input("[bold #61cf5a]Введите номер карточки: ")
                         #pin = console.input("[bold #61cf5a]Введите pincode карточки: ", password=True)
+                        
                         with console.status("[bold #61cf5a]Проверяем наличие счета..."):
                             sleep(2)
                             card_vo = Number_card(number)
                             pin_vo = Pincode(pin)
-                            account = account_repo.execute(card_vo)
+                            account_repo.get_by_card(card_vo)
+                        console.print("[bold #61cf5a]✔ Счет найден[/]")
                         user_menu(card_vo,pin_vo)
-                    except:
+                    except Exception as e:
+                        print(f"Ошибка: {e}") # Это покажет, что именно сломалось
                         console.print("[red]✖ Счет не найден[/]")
+                        break
                 else:
                     console.print("[bold #61cf5a]Неверный выбор[/]")
                     continue
