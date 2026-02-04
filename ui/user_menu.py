@@ -1,9 +1,9 @@
-from time import sleep
 from rich.console import Console
 from rich.table import Table
 from ui.user_action import *
 from application.use_cases.withdraw_balance import WithdrawBalance
 from application.use_cases.deposit_balance import DepositBalance
+
 #Работа программы в зависимости от режима.
 console = Console()
 def user_menu(account, account_repo,transaction_repo):

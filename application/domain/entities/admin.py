@@ -1,8 +1,7 @@
 from domain.value_objects.password import Password
 class Admin:
-    def __init__ (self,password,admin_id):
+    def __init__ (self,password: Password):
         self.password = password
-        self.admin_id = admin_id
     def system_off(self,error):
         if error == 3:
-            raise ValueError("The program has stopped. All login attempts have been used up.")
+            raise ValueError("Программа остановилась. Все попытки входа в систему были исчерпаны.")

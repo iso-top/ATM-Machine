@@ -28,7 +28,6 @@ def main_menu(account_repo,transaction_repo):
                         #pin = console.input("[bold #61cf5a]Введите pincode карточки: ", password=True)
                         
                         with console.status("[bold #61cf5a]Проверяем наличие счета..."):
-                            sleep(2)
                             card_vo = Number_card(number)
                             pin_vo = Pincode(pin)
                             account = account_repo.get_by_card(card_vo)
@@ -42,7 +41,7 @@ def main_menu(account_repo,transaction_repo):
                     console.print("[bold #61cf5a]Неверный выбор[/]")
                     continue
         elif mode == "2":
-            pass
+            console.input("[bold #61cf5a]Введите пароль администратора: [/]")
         else:
             console.print("[bold #61cf5a]Неверный выбор[/]")
             continue

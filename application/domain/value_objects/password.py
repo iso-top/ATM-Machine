@@ -1,9 +1,8 @@
 class Password:
     def __init__(self,value: str):
         if not isinstance(value, str):
-            raise ValueError("The card's pin code should not be of type int")
+            raise ValueError("Пароль не должен быть типа не строка")
 
         lenght = len(value)
         if lenght < 8:
-            raise ValueError("the entered pincode cannot be less than 4 characters")
-        
+            raise ValueError("Пароль должен быть не менее 8 символов")

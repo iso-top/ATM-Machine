@@ -36,7 +36,6 @@ def show_transaction(account, transaction_repo):
     use_case = GetTransactionHistory(transaction_repo)
 
     with console.status("[bold green]Загружаем историю..."):
-        sleep(1)
         transactions = use_case.execute(account.account_id)
 
     if not transactions:

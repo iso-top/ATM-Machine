@@ -3,7 +3,6 @@ from infrastructure.persistence.postgres_account_repository import PostgresAccou
 from infrastructure.persistence.postgres_transaction_repository import PostgresTransactionRepository
 from ui.main_menu import main_menu  # функция для запуска главного меню
 from rich.console import Console 
-from time import sleep
 
 
 console = Console()
@@ -18,7 +17,6 @@ def main():
             password="postgres"
         )
         with console.status("[bold green]Подключаемся к базе данных...") as status:
-            sleep(3)
             conn = db.get_connection()
             account_repo = PostgresAccountRepository(conn)
             transaction_repo = PostgresTransactionRepository(conn)

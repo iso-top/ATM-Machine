@@ -11,10 +11,10 @@ class Account:
 
     # Пополнение счета
     def deposit_balance(self, amount: float):
-        self.balance = Balance(self.balance.amount + amount)
+        self.balance.increase(amount)
 
     # Снятие со счета
     def withdrawal(self, amount: float):
         if self.balance.amount < amount:
             raise ValueError("Недостаточно средств на счете")
-        self.balance = Balance(self.balance.amount - amount)
+        self.balance.decrease(amount)

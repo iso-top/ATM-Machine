@@ -1,5 +1,6 @@
 from application.domain.entities.transaction import Transaction
-class WithdrawBalance:
+from application.ports.input.withdraw_uc import WithdrawBalanceUC
+class WithdrawBalance(WithdrawBalanceUC):
     def __init__(self, account_repository, transaction_repository):
         self._account_repository = account_repository
         self._transaction_repository = transaction_repository
